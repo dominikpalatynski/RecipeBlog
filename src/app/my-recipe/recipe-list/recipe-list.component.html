@@ -1,0 +1,22 @@
+<div class="list-container">
+  <a
+    *ngFor="let i of recipes; let r = index"
+    (click)="expandedIndex[r] = !expandedIndex[r]"
+  >
+    <div class="recipe-container">
+      <h2>{{ i.title }}</h2>
+    </div>
+    <div class="expanded-info" *ngIf="expandedIndex[r]">
+      <div class="desc">
+        <label>Description</label>
+        <p>{{ i.description }}</p>
+      </div>
+
+      <ul class="ingredients-list">
+        <li *ngFor="let key of i.ingredients">
+          {{ key.name }}: {{ key.amount }}
+        </li>
+      </ul>
+    </div>
+  </a>
+</div>

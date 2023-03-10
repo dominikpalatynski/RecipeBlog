@@ -1,0 +1,60 @@
+<div>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="label-container">
+      <label>{{
+        loginMode ? "Sign in to our Blog" : "Sign up to our blog"
+      }}</label>
+      <p>Search awesome recipies</p>
+    </div>
+    <div class="inputs">
+      <div class="email-container">
+        <label for="email">Email</label>
+        <div class="input-container" [ngClass]="{ touched: inputTouched }">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            ngModel
+            required
+            email
+            placeholder="email"
+            (focus)="inputTouched = true"
+            (blur)="inputTouched = false"
+          />
+        </div>
+      </div>
+
+      <div class="email-container">
+        <label for="password">Password</label>
+        <div class="input-container" [ngClass]="{ touched: inputPTouched }">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            ngModel
+            required
+            password
+            placeholder="password"
+            (focus)="inputPTouched = true"
+            (blur)="inputPTouched = false"
+          />
+        </div>
+        <div class="btn">
+          <button type="submit" [disabled]="form.invalid">
+            {{ loginMode ? "Sign In " : "Sign Up" }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="switch-container">
+      <a (click)="onSwitchSignIn()">
+        <p>
+          {{
+            !loginMode ? "Already have and acount?" : "Do not have an account?"
+          }}
+        </p>
+      </a>
+    </div>
+  </form>
+</div>
