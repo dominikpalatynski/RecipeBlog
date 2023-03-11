@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from '../shared/auh-model';
+import { AuthService } from '../shared/auth.service';
 import { Recipe } from '../shared/recipe-model';
 import { RecipeService } from '../shared/recipe.service';
 
@@ -9,14 +11,24 @@ import { RecipeService } from '../shared/recipe.service';
   styleUrls: ['./create-recipe.component.scss'],
 })
 export class CreateRecipeComponent implements OnInit {
-  constructor(private recService: RecipeService) {}
+  constructor(
+    private recService: RecipeService,
+    private authService: AuthService
+  ) {}
   form: FormGroup = new FormGroup({
     title: new FormControl(),
     description: new FormControl(),
     ingredients: new FormArray([]),
   });
+  currentUser: any;
+  userId: number = 0;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.currentUserChanged.subscribe((user) => {
+      this.currentUser = user;
+      console.log(user);
+    });
+  }
 
   get control() {
     return (<FormArray>this.form.get('ingredients')).controls;
@@ -31,10 +43,12 @@ export class CreateRecipeComponent implements OnInit {
   }
   onSubmit() {
     const form = this.form.value;
+    console.log(this.currentUser);
     const newRecipe = new Recipe(
       form.title,
       form.description,
-      form.ingredients
+      form.ingredients,
+      this.currentUser.id
     );
     this.recService.addRecipe(newRecipe);
   }

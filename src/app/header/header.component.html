@@ -2,7 +2,7 @@
   <div class="web-logo">
     <a>Recipe Blog</a>
   </div>
-  <div>
+  <div *ngIf="!isLoginMode">
     <ul>
       <li>
         <a routerLink="/create">Create</a>
@@ -14,7 +14,10 @@
         <a routerLink="/Stories">Stories</a>
       </li>
       <li>
-        <a routerLink="/auth">Login</a>
+        <!-- <a routerLink="/auth">Login</a> -->
+        <a style="cursor: pointer" (click)="onAuth()">{{
+          isLoginMode ? "Login" : "Logout"
+        }}</a>
       </li>
     </ul>
   </div>

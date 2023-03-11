@@ -15,6 +15,7 @@ import { RecipeElementComponent } from './my-recipe/recipe-list/recipe-element/r
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/auth.service';
+import { StoriesService } from './shared/stories.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AuthService } from './shared/auth.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
   ],
-  providers: [RecipeService, AuthService],
+  providers: [RecipeService, AuthService, StoriesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

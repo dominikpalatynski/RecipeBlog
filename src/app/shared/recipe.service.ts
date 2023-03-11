@@ -2,21 +2,23 @@ import { Subject } from 'rxjs';
 import { Recipe } from './recipe-model';
 import { Ingredient } from './ingredients-model';
 import { Injectable } from '@angular/core';
+import { StoriesService } from './stories.service';
 
 @Injectable()
 export class RecipeService {
+  constructor(private storiesService: StoriesService) {}
   recipesChanged = new Subject<Recipe[]>();
   recipes: Recipe[] = [
-    new Recipe('test name', '3 jaja i chleb ', [
-      new Ingredient('bekon', 3),
-      new Ingredient('bekon', 3),
-      new Ingredient('bekon', 3),
-      new Ingredient('bekon', 3),
-    ]),
-    new Recipe('test 2', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
-    new Recipe('test 3', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
-    new Recipe('test 4', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
-    new Recipe('test 5', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
+    // new Recipe('test name', '3 jaja i chleb ', [
+    //   new Ingredient('bekon', 3),
+    //   new Ingredient('bekon', 3),
+    //   new Ingredient('bekon', 3),
+    //   new Ingredient('bekon', 3),
+    // ]),
+    // new Recipe('test 2', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
+    // new Recipe('test 3', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
+    // new Recipe('test 4', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
+    // new Recipe('test 5', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
   ];
 
   getRecipe() {
@@ -25,6 +27,16 @@ export class RecipeService {
   }
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+  onImportFromStories(userID: number) {
+    this.storiesService.allRecipesChanged.subscribe((rec: Recipe[]) => {
+      this.recipes = rec.filter((recipe) => recipe.userId === userID);
+      console.log(this.recipes);
+    });
+    this.recipes = this.storiesService
+      .onExportRecipes()
+      .filter((recipe) => recipe.userId === userID);
     this.recipesChanged.next(this.recipes.slice());
   }
 }

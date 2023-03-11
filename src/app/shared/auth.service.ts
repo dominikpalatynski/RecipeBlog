@@ -1,12 +1,20 @@
 import { OnInit } from '@angular/core';
 import { User } from './auh-model';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { RecipeService } from './recipe.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService implements OnInit {
   usersChanged = new Subject<User[]>();
   userLogIn = new Subject<boolean>();
+
+  currentUserChanged = new BehaviorSubject<any>(null);
+  exportUserID = new Subject<number>();
+
+  constructor(private route: Router, private recipeService: RecipeService) {}
+
   ngOnInit() {}
   userLog = false;
   users: User[] = [
@@ -22,16 +30,16 @@ export class AuthService implements OnInit {
 
     if (!checkUserExist) {
       this.users.push(user);
-      this.usersChanged.next(this.users.slice());
       this.userLog = true;
+
+      this.currentUserChanged.next(user);
+      this.usersChanged.next(this.users.slice());
       this.userLogIn.next(this.userLog);
+      this.route.navigate(['/Stories']);
     }
     if (checkUserExist) {
       window.alert('This user already exist');
     }
-
-    console.log(this.users);
-    console.log(checkUserExist);
   }
   signIn(email: string, password: string) {
     const userName = this.findByName(email);
@@ -46,6 +54,11 @@ export class AuthService implements OnInit {
 
     if (_xCheckP) {
       this.userLog = true;
+
+      this.currentUserChanged.next(this.users[_icheckP]);
+      this.route.navigate(['/Stories']);
+      console.log(_icheckP);
+      this.recipeService.onImportFromStories(_icheckP + 1);
       window.alert('zalogowany pomyślnie');
     } else {
       this.userLog = false;
@@ -69,5 +82,12 @@ export class AuthService implements OnInit {
     } else {
       return -1;
     }
+  }
+  logOut() {
+    this.currentUserChanged.next(null);
+  }
+  findNameById(userId: number) {
+    const user = this.users.find((u) => u.id === userId);
+    return user ? user.email : null;
   }
 }
