@@ -11,12 +11,13 @@ export class AuthService implements OnInit {
   userLogIn = new Subject<boolean>();
 
   currentUserChanged = new BehaviorSubject<any>(null);
-  exportUserID = new Subject<number>();
 
   constructor(private route: Router, private recipeService: RecipeService) {}
 
   ngOnInit() {}
   userLog = false;
+  userId: number = 0;
+  exportUserID = new Subject<number>();
   users: User[] = [
     new User('dominik.palatynski@gmail.com', 'adidas2001', 1),
     new User('dominik.palatybski@gmail.com', 'adidas2001', 2),
@@ -43,7 +44,7 @@ export class AuthService implements OnInit {
   }
   signIn(email: string, password: string) {
     const userName = this.findByName(email);
-    const _icheckP = this.CheckUserPassword(email, password);
+    let _icheckP = this.CheckUserPassword(email);
     let _xCheckP = null;
 
     if (this.users[_icheckP].password === password) {
@@ -54,11 +55,13 @@ export class AuthService implements OnInit {
 
     if (_xCheckP) {
       this.userLog = true;
-
+      this.userId = _icheckP;
+      this.exportUserID.next(this.userId);
       this.currentUserChanged.next(this.users[_icheckP]);
       this.route.navigate(['/Stories']);
       console.log(_icheckP);
       this.recipeService.onImportFromStories(_icheckP + 1);
+
       window.alert('zalogowany pomyślnie');
     } else {
       this.userLog = false;
@@ -73,9 +76,9 @@ export class AuthService implements OnInit {
       return user.email === email;
     });
   }
-  CheckUserPassword(email: string, password: string) {
+  CheckUserPassword(email: string) {
     const userIndex = this.users.findIndex((user) => {
-      return user.email;
+      return user.email === email;
     });
     if (userIndex !== -1) {
       return userIndex;
@@ -85,6 +88,7 @@ export class AuthService implements OnInit {
   }
   logOut() {
     this.currentUserChanged.next(null);
+    this.recipeService.clearAfterLogOut();
   }
   findNameById(userId: number) {
     const user = this.users.find((u) => u.id === userId);

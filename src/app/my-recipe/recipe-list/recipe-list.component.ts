@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Ingredient } from 'src/app/shared/ingredients-model';
 import { Recipe } from 'src/app/shared/recipe-model';
@@ -14,7 +14,8 @@ export class RecipeListComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {
     this.expandedIndex = new Array(this.recipes.length).fill(false);
   }
@@ -32,6 +33,7 @@ export class RecipeListComponent implements OnInit {
 
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
+      this.recipeService.onImportFromStories(user.id);
     });
     console.log(this.currentUser);
     console.log(this.recipes);
@@ -47,4 +49,10 @@ export class RecipeListComponent implements OnInit {
     }
     console.log(trig);
   }
+
+  goToEdit(name: string) {
+    console.log(name);
+    this.router.navigate([`${name}/edit`], { relativeTo: this.route });
+  }
+  dropDownBut() {}
 }

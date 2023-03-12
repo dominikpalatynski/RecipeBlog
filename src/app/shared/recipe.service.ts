@@ -39,4 +39,9 @@ export class RecipeService {
       .filter((recipe) => recipe.userId === userID);
     this.recipesChanged.next(this.recipes.slice());
   }
+  clearAfterLogOut() {
+    this.recipes = [];
+    this.recipesChanged.next(this.recipes.slice());
+    console.log(this.recipes);
+  }
 }

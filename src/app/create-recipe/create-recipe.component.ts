@@ -4,6 +4,7 @@ import { User } from '../shared/auh-model';
 import { AuthService } from '../shared/auth.service';
 import { Recipe } from '../shared/recipe-model';
 import { RecipeService } from '../shared/recipe.service';
+import { StoriesService } from '../shared/stories.service';
 
 @Component({
   selector: 'app-create-recipe',
@@ -13,7 +14,8 @@ import { RecipeService } from '../shared/recipe.service';
 export class CreateRecipeComponent implements OnInit {
   constructor(
     private recService: RecipeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private storiesService: StoriesService
   ) {}
   form: FormGroup = new FormGroup({
     title: new FormControl(),
@@ -50,7 +52,8 @@ export class CreateRecipeComponent implements OnInit {
       form.ingredients,
       this.currentUser.id
     );
-    this.recService.addRecipe(newRecipe);
+    // this.recService.addRecipe(newRecipe);
+    this.storiesService.onAddToStories(newRecipe);
   }
   onDeleteIngr(index: number) {
     (<FormArray>this.form.get('ingredients')).removeAt(index);

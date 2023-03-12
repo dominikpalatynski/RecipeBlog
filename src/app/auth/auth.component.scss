@@ -1,3 +1,6 @@
+* {
+  background-color: aqua;
+}
 form {
   position: absolute;
   top: 50%;
@@ -13,6 +16,7 @@ form {
   width: 300px;
   height: 400px;
   padding: 36px;
+  box-shadow: 0 15px 10px #777;
 
   .label-container {
     label {

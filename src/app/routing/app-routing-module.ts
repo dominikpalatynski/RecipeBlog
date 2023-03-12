@@ -7,7 +7,16 @@ import { AuthComponent } from '../auth/auth.component';
 
 const appRoutes: Routes = [
   { path: 'create', component: CreateRecipeComponent },
-  { path: 'Your', component: MyRecipeComponent },
+  {
+    path: 'Your',
+    component: MyRecipeComponent,
+    children: [
+      {
+        path: ':name/edit',
+        component: CreateRecipeComponent,
+      },
+    ],
+  },
   { path: 'Stories', component: StoriesComponent },
   { path: 'auth', component: AuthComponent },
 ];

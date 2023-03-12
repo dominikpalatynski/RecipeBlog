@@ -1,8 +1,5 @@
 <div class="list-container">
-  <a
-    *ngFor="let i of recipes; let r = index"
-    (click)="expandedIndex[r] = !expandedIndex[r]"
-  >
+  <a *ngFor="let i of recipes; let r = index">
     <div class="recipe-container">
       <h2>{{ i.title }}</h2>
     </div>
@@ -18,5 +15,10 @@
         </li>
       </ul>
     </div>
+    <button type="button" (click)="goToEdit(i.title)">Edit</button>
+    <button
+      type="button"
+      (click)="expandedIndex[r] = !expandedIndex[r]"
+    ></button>
   </a>
 </div>
