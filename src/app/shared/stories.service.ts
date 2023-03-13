@@ -33,4 +33,8 @@ export class StoriesService {
     this.allRecipies.push(recipe);
     this.allRecipesChanged.next(this.allRecipies);
   }
+  shareFromRecipes(recipe: Recipe) {
+    this.allRecipies.push(recipe);
+    this.allRecipesChanged.next(this.allRecipies.slice());
+  }
 }

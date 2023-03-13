@@ -15,10 +15,10 @@
         </li>
       </ul>
     </div>
-    <button type="button" (click)="goToEdit(i.title)">Edit</button>
-    <button
-      type="button"
-      (click)="expandedIndex[r] = !expandedIndex[r]"
-    ></button>
+    <button type="button" (click)="goToEdit(i.title, r)">Edit</button>
+    <button type="button" (click)="expandedIndex[r] = !expandedIndex[r]">
+      DropDown
+    </button>
+    <button type="button" (click)="onShare(r)">Share</button>
   </a>
 </div>

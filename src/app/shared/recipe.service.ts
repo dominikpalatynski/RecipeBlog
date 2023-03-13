@@ -9,16 +9,21 @@ export class RecipeService {
   constructor(private storiesService: StoriesService) {}
   recipesChanged = new Subject<Recipe[]>();
   recipes: Recipe[] = [
-    // new Recipe('test name', '3 jaja i chleb ', [
-    //   new Ingredient('bekon', 3),
-    //   new Ingredient('bekon', 3),
-    //   new Ingredient('bekon', 3),
-    //   new Ingredient('bekon', 3),
-    // ]),
-    // new Recipe('test 2', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
-    // new Recipe('test 3', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
-    // new Recipe('test 4', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
-    // new Recipe('test 5', '3 jaja i chleb ', [new Ingredient('bekon', 3)]),
+    new Recipe(
+      'test name',
+      '3 jaja i chleb ',
+      [
+        new Ingredient('bekon', 3),
+        new Ingredient('bekon', 3),
+        new Ingredient('bekon', 3),
+        new Ingredient('bekon', 3),
+      ],
+      1
+    ),
+    new Recipe('test 2', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 2),
+    new Recipe('test 3', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 2),
+    new Recipe('test 4', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 1),
+    new Recipe('test 5', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 3),
   ];
 
   getRecipe() {
@@ -43,5 +48,18 @@ export class RecipeService {
     this.recipes = [];
     this.recipesChanged.next(this.recipes.slice());
     console.log(this.recipes);
+  }
+
+  importCurrUserRecipe(userID: number) {
+    this.recipes = this.recipes.filter((recipe) => recipe.userId === userID);
+    this.recipesChanged.next(this.recipes.slice());
+    console.log(this.recipes);
+  }
+  getOneRecipe(id: number) {
+    return this.recipes[id];
+  }
+  onUpdate(id: number, recipe: Recipe) {
+    this.recipes[id] = recipe;
+    this.recipesChanged.next(this.recipes.slice());
   }
 }

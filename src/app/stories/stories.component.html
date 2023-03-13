@@ -1,6 +1,7 @@
 <div class="list-container">
   <a
     *ngFor="let i of allRecipes; let r = index"
+    [ngStyle]="{ 'background-color': i.userId === currentUser.id ? 'red' : '' }"
     (click)="expandedIndex[r] = !expandedIndex[r]"
   >
     <div class="recipe-container">

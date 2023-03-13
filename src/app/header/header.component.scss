@@ -3,11 +3,13 @@ $button-color: #eae4f6;
 * {
   background-color: aqua;
 }
-.header {
+header {
   position: sticky;
+}
+.header {
   display: flex;
   justify-content: space-between;
-  margin: 0;
+  margin: auto;
   background-color: $primary-color;
   height: 100px;
   padding-left: 10px;
@@ -56,8 +58,8 @@ $button-color: #eae4f6;
   }
 
   /* dodajemy style do całej strony */
-  width: 100vw;
+  // width: 100vw;
 
-  top: 0;
-  left: 0;
+  // top: 0;
+  // left: 0;
 }

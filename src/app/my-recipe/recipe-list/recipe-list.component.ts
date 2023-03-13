@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { Ingredient } from 'src/app/shared/ingredients-model';
 import { Recipe } from 'src/app/shared/recipe-model';
 import { RecipeService } from 'src/app/shared/recipe.service';
+import { StoriesService } from 'src/app/shared/stories.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -15,6 +16,7 @@ export class RecipeListComponent implements OnInit {
     private recipeService: RecipeService,
     private router: Router,
     private authService: AuthService,
+    private storiesService: StoriesService,
     private route: ActivatedRoute
   ) {
     this.expandedIndex = new Array(this.recipes.length).fill(false);
@@ -33,7 +35,8 @@ export class RecipeListComponent implements OnInit {
 
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
-      this.recipeService.onImportFromStories(user.id);
+      // this.recipeService.onImportFromStories(user.id);
+      this.recipeService.importCurrUserRecipe(user.id);
     });
     console.log(this.currentUser);
     console.log(this.recipes);
@@ -50,9 +53,12 @@ export class RecipeListComponent implements OnInit {
     console.log(trig);
   }
 
-  goToEdit(name: string) {
+  goToEdit(name: string, id: number) {
     console.log(name);
-    this.router.navigate([`${name}/edit`], { relativeTo: this.route });
+    this.router.navigate([`${name}/${id}/edit`], { relativeTo: this.route });
   }
   dropDownBut() {}
+  onShare(r: number) {
+    this.storiesService.shareFromRecipes(this.recipes[r]);
+  }
 }
