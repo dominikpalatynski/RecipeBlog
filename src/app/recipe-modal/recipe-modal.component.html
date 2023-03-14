@@ -1,53 +1,26 @@
-<!-- <div class="list-container">
-  <a
-    *ngFor="let i of allRecipes; let r = index"
-    [ngStyle]="{ 'background-color': i.userId === currentUser.id ? 'red' : '' }"
-    (click)="expandedIndex[r] = !expandedIndex[r]"
-  >
-    <div class="recipe-container">
-      <h2>{{ i.title }}</h2>
-      <label>Author: {{ getAuthorName(i.userId) }}</label>
-    </div>
-    <div class="expanded-info" *ngIf="expandedIndex[r]">
-      <div class="desc">
-        <label>Description</label>
-        <p>{{ i.description }}</p>
-      </div>
-
-      <ul class="ingredients-list">
-        <li *ngFor="let key of i.ingredients">
-          {{ key.name }}: {{ key.amount }}
-        </li>
-      </ul>
-    </div>
-  </a>
-</div> -->
-
-<div class="all-container">
-  <div class="search-container">
-    <label>Search recipe by name</label>
-    <input type="text" placeholder="Search" [(ngModel)]="searchTitle" />
+<div class="modal-overlay">
+  <div class="close-container">
+    <button type="button" (click)="onBack()">Close</button>
   </div>
-  <div
-    class="list-container"
-    *ngFor="let i of allRecipes | filterByTitle : searchTitle; let r = index"
-  >
-    <div class="your-container" *ngIf="i.userId === currentUser.id">
-      <label>Yours</label>
-    </div>
+  <div class="img-container">
+    <img
+      src="https://i.pinimg.com/564x/80/95/f4/8095f4adae57b2319f5d24b5cf070e94.jpg"
+      alt="przepis"
+    />
+  </div>
+  <div class="content-container">
     <div class="author-container">
-      <label>{{ getAuthorName(i.userId) }}</label>
-      <p>1:30</p>
+      <label>Author</label>
     </div>
-    <div class="title-container">
-      <h2>{{ i.title }}</h2>
+    <div class="decription-container">
+      <p>Decription</p>
     </div>
-    <div class="img-container">
-      <img
-        src="https://i.pinimg.com/564x/80/95/f4/8095f4adae57b2319f5d24b5cf070e94.jpg"
-        alt="przepis"
-      />
+    <div class="ingredients-container">
+      <a>ing1</a>
+      <a>ing1</a>
+      <a>ing1</a>
     </div>
+
     <div class="emoi-container">
       <button class="emoi-btn">
         <svg
@@ -60,7 +33,7 @@
           />
         </svg>
       </button>
-      <button class="emoi-btn" (click)="onDetail(r, i.title)">
+      <button class="emoi-btn">
         <svg
           class="heart"
           xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +45,7 @@
           />
         </svg>
       </button>
-      <button class="emoi-btn 3">
+      <button class="emoi-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="save"
@@ -85,9 +58,8 @@
         </svg>
       </button>
     </div>
-    <div class="description-container">
-      <p>{{ i.description }}</p>
+    <div class="data-container">
+      <p>31min ago</p>
     </div>
   </div>
-  <router-outlet></router-outlet>
 </div>

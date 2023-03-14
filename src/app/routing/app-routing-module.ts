@@ -4,6 +4,7 @@ import { CreateRecipeComponent } from '../create-recipe/create-recipe.component'
 import { MyRecipeComponent } from '../my-recipe/my-recipe.component';
 import { StoriesComponent } from '../stories/stories.component';
 import { AuthComponent } from '../auth/auth.component';
+import { RecipeModalComponent } from '../recipe-modal/recipe-modal.component';
 
 const appRoutes: Routes = [
   { path: 'create', component: CreateRecipeComponent },
@@ -17,7 +18,16 @@ const appRoutes: Routes = [
       },
     ],
   },
-  { path: 'Stories', component: StoriesComponent },
+  {
+    path: 'Stories',
+    component: StoriesComponent,
+    children: [
+      {
+        path: ':name/:id/details',
+        component: RecipeModalComponent,
+      },
+    ],
+  },
   { path: 'auth', component: AuthComponent },
 ];
 

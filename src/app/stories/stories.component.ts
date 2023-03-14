@@ -4,6 +4,7 @@ import { Recipe } from '../shared/recipe-model';
 import { StoriesService } from '../shared/stories.service';
 import { Subject } from 'rxjs';
 import { User } from '../shared/auh-model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-stories',
@@ -13,7 +14,9 @@ import { User } from '../shared/auh-model';
 export class StoriesComponent implements OnInit {
   constructor(
     private storiesService: StoriesService,
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.expandedIndex = new Array(this.allRecipes.length).fill(false);
   }
@@ -22,6 +25,7 @@ export class StoriesComponent implements OnInit {
   expandedIndex: boolean[] = [];
   currentUser!: User;
   yourRec: boolean = false;
+  searchTitle: string = '';
   ngOnInit() {
     this.allRecipes = this.storiesService.onExportRecipes();
     this.storiesService.allRecipesChanged.subscribe((allRec) => {
@@ -34,5 +38,10 @@ export class StoriesComponent implements OnInit {
   }
   getAuthorName(id: number) {
     return this.authService.findNameById(id);
+  }
+  onDetail(id: number, title: string) {
+    this.router.navigate([`${title}/${id}/details`], {
+      relativeTo: this.route,
+    });
   }
 }

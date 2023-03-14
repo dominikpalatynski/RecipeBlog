@@ -16,7 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/auth.service';
 import { StoriesService } from './shared/stories.service';
-
+import { MatIconModule } from '@angular/material/icon';
+import { RecipeModalComponent } from './recipe-modal/recipe-modal.component';
+import { FilterByTitle } from './pipes/searchName';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,8 @@ import { StoriesService } from './shared/stories.service';
     AuthComponent,
     RecipeListComponent,
     RecipeElementComponent,
+    RecipeModalComponent,
+    FilterByTitle,
   ],
   imports: [
     BrowserModule,
@@ -34,8 +38,10 @@ import { StoriesService } from './shared/stories.service';
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
   providers: [RecipeService, AuthService, StoriesService],
   bootstrap: [AppComponent],
+  exports: [MatIconModule],
 })
 export class AppModule {}

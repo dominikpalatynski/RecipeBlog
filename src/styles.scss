@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~font-awesome/css/font-awesome.css";
 body {
-  background-color: black;
+  // background-color: black;
   overflow-x: hidden;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+}
+* {
+  font-family: "Open Sans", sans-serif !important;
 }
