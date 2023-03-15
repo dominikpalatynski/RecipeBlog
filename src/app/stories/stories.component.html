@@ -28,6 +28,9 @@
     <label>Search recipe by name</label>
     <input type="text" placeholder="Search" [(ngModel)]="searchTitle" />
   </div>
+  <div class="stories-label">
+    <h1>Stories</h1>
+  </div>
   <div
     class="list-container"
     *ngFor="let i of allRecipes | filterByTitle : searchTitle; let r = index"
@@ -72,7 +75,7 @@
           />
         </svg>
       </button>
-      <button class="emoi-btn 3">
+      <button class="emoi-btn 3" (click)="onSave(r)">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="save"

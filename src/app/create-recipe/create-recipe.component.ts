@@ -62,7 +62,9 @@ export class CreateRecipeComponent implements OnInit {
       form.title,
       form.description,
       form.ingredients,
-      this.currentUser.id
+      this.currentUser.id,
+      '',
+      1
     );
 
     if (!this.editMode) {

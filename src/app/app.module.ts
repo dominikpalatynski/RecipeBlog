@@ -19,6 +19,7 @@ import { StoriesService } from './shared/stories.service';
 import { MatIconModule } from '@angular/material/icon';
 import { RecipeModalComponent } from './recipe-modal/recipe-modal.component';
 import { FilterByTitle } from './pipes/searchName';
+import { SaveService } from './shared/save-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,7 @@ import { FilterByTitle } from './pipes/searchName';
     ReactiveFormsModule,
     MatIconModule,
   ],
-  providers: [RecipeService, AuthService, StoriesService],
+  providers: [RecipeService, AuthService, StoriesService, SaveService],
   bootstrap: [AppComponent],
   exports: [MatIconModule],
 })
