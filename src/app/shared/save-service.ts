@@ -5,13 +5,39 @@ import { SaveRecipe } from './save-model';
 
 // @Injectable({ providedIn: 'root' })
 export class SaveService {
-  saveRecipes: SaveRecipe[] = [];
-  saveRecipesChanged = new Subject<SaveRecipe[]>();
-
-  onSaveRecipes(id: number, recipe: Recipe) {
-    const savedRecipe: SaveRecipe = { userId: id, Recipe: recipe };
-    this.saveRecipes.push(savedRecipe);
-    this.saveRecipesChanged.next(this.saveRecipes);
-    console.log(this.saveRecipes);
+  allSavedRecipes: SaveRecipe[] = [{ userId: 1, recipesId: [] }];
+  allSavedRecipesChanged = new Subject<SaveRecipe[]>();
+  onSaveRecipes(userId: number, recipeId: number) {
+    const indexOfSave = this.allSavedRecipes.findIndex(
+      (index) => index.userId === userId
+    );
+    if (this.checkCanSave(userId, recipeId)) {
+      window.alert('Przepis jest już zapisany');
+    } else {
+      this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
+      this.allSavedRecipesChanged.next(this.allSavedRecipes);
+    }
+    // this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
+    // this.allSavedRecipesChanged.next(this.allSavedRecipes);
+    console.log(this.allSavedRecipes);
+  }
+  createNewElement(id: number) {
+    this.allSavedRecipes.push({ userId: id, recipesId: [] });
+    this.allSavedRecipesChanged.next(this.allSavedRecipes.slice());
+    console.log(this.allSavedRecipes);
+  }
+  checkCanSave(userId: number, recipeId: number) {
+    const indexOfSave = this.allSavedRecipes.findIndex(
+      (index) => index.userId === userId
+    );
+    let checkIfSave;
+    for (let rec of this.allSavedRecipes[indexOfSave].recipesId) {
+      if (rec === recipeId) {
+        checkIfSave = true;
+      } else {
+        checkIfSave = false;
+      }
+    }
+    return checkIfSave;
   }
 }

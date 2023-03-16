@@ -4,6 +4,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RecipeService } from './recipe.service';
+import { SaveService } from './save-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService implements OnInit {
@@ -12,7 +13,11 @@ export class AuthService implements OnInit {
 
   currentUserChanged = new BehaviorSubject<any>(null);
 
-  constructor(private route: Router, private recipeService: RecipeService) {}
+  constructor(
+    private route: Router,
+    private recipeService: RecipeService,
+    private saveService: SaveService
+  ) {}
 
   ngOnInit() {}
   userLog = false;
@@ -32,7 +37,7 @@ export class AuthService implements OnInit {
     if (!checkUserExist) {
       this.users.push(user);
       this.userLog = true;
-
+      this.saveService.createNewElement(id);
       this.currentUserChanged.next(user);
       this.usersChanged.next(this.users.slice());
       this.userLogIn.next(this.userLog);

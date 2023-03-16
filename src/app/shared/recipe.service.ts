@@ -20,7 +20,8 @@ export class RecipeService {
       ],
       1,
       'dessert',
-      3
+      3,
+      1
     ),
     // new Recipe('test 2', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 2),
     // new Recipe('test 3', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 2),
@@ -63,5 +64,8 @@ export class RecipeService {
   onUpdate(id: number, recipe: Recipe) {
     this.recipes[id] = recipe;
     this.recipesChanged.next(this.recipes.slice());
+  }
+  onAddUniqueId() {
+    return this.recipes.length + 1;
   }
 }

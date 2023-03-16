@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { User } from '../shared/auh-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SaveService } from '../shared/save-service';
+import { RecipeService } from '../shared/recipe.service';
 
 @Component({
   selector: 'app-stories',
@@ -18,7 +19,8 @@ export class StoriesComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private saveService: SaveService
+    private saveService: SaveService,
+    private recipeService: RecipeService
   ) {
     this.expandedIndex = new Array(this.allRecipes.length).fill(false);
   }
@@ -47,13 +49,15 @@ export class StoriesComponent implements OnInit {
     });
   }
   onSave(index: number) {
+    const passId = this.currentUser.id;
+    const recId = this.allRecipes[index].uniqueId;
     if (!(this.currentUser.id === this.allRecipes[index].userId)) {
-      this.saveService.onSaveRecipes(
-        this.currentUser.id,
-        this.allRecipes[index]
-      );
+      this.saveService.onSaveRecipes(passId, recId);
     } else {
       window.alert(`You cant save your own recipes`);
     }
+  }
+  onCheck(userId: number, recipeId: number) {
+    this.saveService.checkCanSave(userId, recipeId);
   }
 }

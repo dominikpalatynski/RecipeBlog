@@ -58,13 +58,15 @@ export class CreateRecipeComponent implements OnInit {
   }
   onSubmit() {
     const form = this.form.value;
+    const uniqueId = this.recService.onAddUniqueId();
     const newRecipe = new Recipe(
       form.title,
       form.description,
       form.ingredients,
       this.currentUser.id,
       '',
-      1
+      1,
+      uniqueId
     );
 
     if (!this.editMode) {

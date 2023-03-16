@@ -6,19 +6,17 @@ import { Recipe } from './recipe-model';
 @Injectable()
 export class StoriesService {
   allRecipies: Recipe[] = [
-    new Recipe(
-      'test name',
-      '3 jaja i chleb ',
-      [
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-      ],
-      1,
-      'dessert',
-      3
-    ),
+    // new Recipe(
+    //   'test name',
+    //   '3 jaja i chleb ',
+    //   [
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //   ],
+    //   1
+    // ),
     // new Recipe('test 2', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 2),
     // new Recipe('test 3', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 2),
     // new Recipe('test 4', '3 jaja i chleb ', [new Ingredient('bekon', 3)], 1),

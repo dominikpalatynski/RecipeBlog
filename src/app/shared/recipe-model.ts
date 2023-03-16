@@ -7,6 +7,7 @@ export class Recipe {
   public userId: number;
   public type: string;
   public difcult: number;
+  public uniqueId: number;
 
   constructor(
     title: string,
@@ -14,7 +15,8 @@ export class Recipe {
     ingredients: Ingredient[],
     userId: number,
     type: string,
-    dificult: number
+    dificult: number,
+    uniqueId: number
   ) {
     this.title = title;
     this.description = description;
@@ -22,5 +24,6 @@ export class Recipe {
     this.userId = userId;
     this.type = type;
     this.difcult = dificult;
+    this.uniqueId = uniqueId;
   }
 }
