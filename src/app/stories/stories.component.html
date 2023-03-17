@@ -75,10 +75,23 @@
           />
         </svg>
       </button>
-      <button class="emoi-btn 3" (click)="onSave(r)">
+
+      <!-- <button class="emoi-btn 3" (click)="onSave(r)"> -->
+      <button
+        class="emoi-btn 3"
+        (click)="
+          isSaved(currentUser.id, i)
+            ? onDelete(currentUser.id, i.uniqueId)
+            : onAdd(currentUser.id, i.uniqueId)
+        "
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="save"
+          [ngClass]="{
+            'saved-recipe': isSaved(currentUser.id, i),
+            'unsaved-recipe': !isSaved(currentUser.id, i)
+          }"
           viewBox="0 0 384 512"
         >
           <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->

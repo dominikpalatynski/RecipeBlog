@@ -7,6 +7,7 @@ import { User } from '../shared/auh-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SaveService } from '../shared/save-service';
 import { RecipeService } from '../shared/recipe.service';
+import { SaveRecipe } from '../shared/save-model';
 
 @Component({
   selector: 'app-stories',
@@ -26,6 +27,7 @@ export class StoriesComponent implements OnInit {
   }
 
   allRecipes: Recipe[] = [];
+  savedRecipes: SaveRecipe[] = [];
   expandedIndex: boolean[] = [];
   currentUser!: User;
   yourRec: boolean = false;
@@ -34,6 +36,10 @@ export class StoriesComponent implements OnInit {
     this.allRecipes = this.storiesService.onExportRecipes();
     this.storiesService.allRecipesChanged.subscribe((allRec) => {
       this.allRecipes = allRec;
+    });
+    this.saveService.allSavedRecipesChanged.subscribe((saved) => {
+      this.savedRecipes = saved;
+      console.log(this.savedRecipes);
     });
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
@@ -57,7 +63,14 @@ export class StoriesComponent implements OnInit {
       window.alert(`You cant save your own recipes`);
     }
   }
-  onCheck(userId: number, recipeId: number) {
-    this.saveService.checkCanSave(userId, recipeId);
+
+  onAdd(currentUserId: number, recipeId: number) {
+    this.saveService.onAdd(currentUserId, recipeId);
+  }
+  onDelete(currentUserId: number, recipeId: number) {
+    this.saveService.onDelete(currentUserId, recipeId);
+  }
+  isSaved(currentUserId: number, recipe: Recipe) {
+    return this.saveService.isSave(currentUserId, recipe);
   }
 }

@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RecipeModalComponent } from './recipe-modal/recipe-modal.component';
 import { FilterByTitle } from './pipes/searchName';
 import { SaveService } from './shared/save-service';
+import { SavedRecipeComponent } from './saved-recipe/saved-recipe.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { SaveService } from './shared/save-service';
     RecipeElementComponent,
     RecipeModalComponent,
     FilterByTitle,
+    SavedRecipeComponent,
   ],
   imports: [
     BrowserModule,

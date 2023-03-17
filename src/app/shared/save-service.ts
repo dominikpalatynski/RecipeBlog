@@ -40,4 +40,30 @@ export class SaveService {
     }
     return checkIfSave;
   }
+  onAdd(userId: number, recipeId: number) {
+    const indexOfSave = this.allSavedRecipes.findIndex(
+      (index) => index.userId === userId
+    );
+    this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
+    this.allSavedRecipesChanged.next(this.allSavedRecipes);
+    console.log(this.allSavedRecipes);
+  }
+  onDelete(userId: number, recipeId: number) {
+    const indexOfSave = this.allSavedRecipes.findIndex(
+      (index) => index.userId === userId
+    );
+    const findIndexOfRec = this.allSavedRecipes[
+      indexOfSave
+    ].recipesId.findIndex((index) => index === recipeId);
+    this.allSavedRecipes[indexOfSave].recipesId.splice(findIndexOfRec, 1);
+    this.allSavedRecipesChanged.next(this.allSavedRecipes);
+    console.log(this.allSavedRecipes);
+  }
+
+  isSave(currentUserId: number, recipe: Recipe) {
+    const savedRecipe = this.allSavedRecipes.find(
+      (r) => r.userId === currentUserId
+    );
+    return savedRecipe?.recipesId.includes(recipe.uniqueId);
+  }
 }
