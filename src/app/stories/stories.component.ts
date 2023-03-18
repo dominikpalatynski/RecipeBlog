@@ -43,7 +43,6 @@ export class StoriesComponent implements OnInit {
     });
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
-      console.log(user);
     });
   }
   getAuthorName(id: number) {

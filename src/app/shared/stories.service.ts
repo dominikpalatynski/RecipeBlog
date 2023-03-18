@@ -36,5 +36,9 @@ export class StoriesService {
   shareFromRecipes(recipe: Recipe) {
     this.allRecipies.push(recipe);
     this.allRecipesChanged.next(this.allRecipies.slice());
+    console.log(this.allRecipies);
+  }
+  exportToModel(index: number) {
+    return this.allRecipies[index];
   }
 }

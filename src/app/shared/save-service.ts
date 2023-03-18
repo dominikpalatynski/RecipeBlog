@@ -17,14 +17,10 @@ export class SaveService {
       this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
       this.allSavedRecipesChanged.next(this.allSavedRecipes);
     }
-    // this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
-    // this.allSavedRecipesChanged.next(this.allSavedRecipes);
-    console.log(this.allSavedRecipes);
   }
   createNewElement(id: number) {
     this.allSavedRecipes.push({ userId: id, recipesId: [] });
     this.allSavedRecipesChanged.next(this.allSavedRecipes.slice());
-    console.log(this.allSavedRecipes);
   }
   checkCanSave(userId: number, recipeId: number) {
     const indexOfSave = this.allSavedRecipes.findIndex(
@@ -46,7 +42,6 @@ export class SaveService {
     );
     this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
     this.allSavedRecipesChanged.next(this.allSavedRecipes);
-    console.log(this.allSavedRecipes);
   }
   onDelete(userId: number, recipeId: number) {
     const indexOfSave = this.allSavedRecipes.findIndex(
@@ -57,7 +52,6 @@ export class SaveService {
     ].recipesId.findIndex((index) => index === recipeId);
     this.allSavedRecipes[indexOfSave].recipesId.splice(findIndexOfRec, 1);
     this.allSavedRecipesChanged.next(this.allSavedRecipes);
-    console.log(this.allSavedRecipes);
   }
 
   isSave(currentUserId: number, recipe: Recipe) {
