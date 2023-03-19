@@ -57,12 +57,6 @@ export class SaveService {
     this.allSavedRecipesChanged.next(this.allSavedRecipes);
   }
 
-  isSave(currentUserId: number, recipe: Recipe) {
-    const savedRecipe = this.allSavedRecipes.find(
-      (r) => r.userId === currentUserId
-    );
-    return savedRecipe?.recipesId.includes(recipe.uniqueId);
-  }
   exportSavedRecipe(currentUserId: number): Recipe[] {
     const indexOfSave = this.onFindCurrentUserSave(currentUserId);
     const recipesId = this.allSavedRecipes[indexOfSave].recipesId;
@@ -76,18 +70,32 @@ export class SaveService {
       (index) => index.userId === currentUserId
     );
   }
+  isSave(currentUserId: number, recipe: Recipe) {
+    const savedRecipe = this.allSavedRecipes.find(
+      (r) => r.userId === currentUserId
+    );
+    return savedRecipe?.recipesId.includes(recipe.uniqueId);
+  }
   isLiked(currentUserId: number, recipe: Recipe) {
     const likedRecipe = this.allSavedRecipes.find(
       (r) => r.userId === currentUserId
     );
     return likedRecipe?.likedRecipes.includes(recipe.uniqueId);
   }
-  onLike(userId: number, likeId: number) {
+  onLike(userId: number, recipeId: number) {
     const indexOfLiked = this.onFindCurrentUserSave(userId);
-    this.allSavedRecipes[indexOfLiked].recipesId.push(likeId);
+    this.allSavedRecipes[indexOfLiked].likedRecipes.push(recipeId);
     this.allSavedRecipesChanged.next(this.allSavedRecipes);
+    this.recipeService.likeCounter(recipeId - 1);
+    console.log(this.allSavedRecipes);
   }
-  onUnlike(userId: number, likeId: number) {
+  onUnlike(userId: number, recipeId: number) {
     const indexOfLiked = this.onFindCurrentUserSave(userId);
+    const findIndexOfRec = this.allSavedRecipes[
+      indexOfLiked
+    ].likedRecipes.findIndex((index) => index === recipeId);
+    this.allSavedRecipes[indexOfLiked].likedRecipes.splice(findIndexOfRec, 1);
+    this.allSavedRecipesChanged.next(this.allSavedRecipes);
+    this.recipeService.unLikeCounter(recipeId - 1);
   }
 }

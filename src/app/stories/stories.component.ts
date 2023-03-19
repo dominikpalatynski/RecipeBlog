@@ -30,7 +30,7 @@ export class StoriesComponent implements OnInit {
   savedRecipes: SaveRecipe[] = [];
   expandedIndex: boolean[] = [];
   currentUser!: User;
-  isSaveClass: any;
+
   yourRec: boolean = false;
   searchTitle: string = '';
   ngOnInit() {
@@ -73,17 +73,28 @@ export class StoriesComponent implements OnInit {
   }
   isSaved(currentUserId: number, recipe: Recipe) {
     const checkIfSave = this.saveService.isSave(currentUserId, recipe);
-    this.isSaveClass = this.saveService.isSave(currentUserId, recipe);
 
     checkIfSave
       ? this.onDelete(currentUserId, recipe.uniqueId)
       : this.onAdd(currentUserId, recipe.uniqueId);
   }
+  isLike(currentUserId: number, reciped: Recipe) {
+    const checkIsLiked = this.saveService.isLiked(currentUserId, reciped);
+    checkIsLiked
+      ? this.saveService.onUnlike(currentUserId, reciped.uniqueId)
+      : this.saveService.onLike(currentUserId, reciped.uniqueId);
+  }
+
   checkIfLogin(currentUser: User) {
     const check = currentUser ? true : false;
     return check;
   }
   goLoginMode() {
     this.authService.goLogin();
+  }
+  colorHandle(currentUserId: number, recipe: Recipe) {
+    const saved = this.saveService.isSave(currentUserId, recipe);
+    const liked = this.saveService.isLiked(currentUserId, recipe);
+    return { saved, liked };
   }
 }

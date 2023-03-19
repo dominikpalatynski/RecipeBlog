@@ -66,8 +66,8 @@ export class AuthService implements OnInit {
       this.currentUserChanged.next(this.users[_icheckP]);
       this.route.navigate(['/Stories']);
       console.log(_icheckP);
-      // this.recipeService.onImportFromStories(_icheckP + 1);
-      this.recipeService.importCurrUserRecipe(_icheckP + 1);
+
+      // this.recipeService.importCurrUserRecipe(_icheckP + 1);
       window.alert('zalogowany pomyślnie');
     } else {
       this.userLog = false;
@@ -93,8 +93,7 @@ export class AuthService implements OnInit {
     }
   }
   logOut() {
-    this.currentUserChanged.next(null);
-    // this.recipeService.clearAfterLogOut();
+    this.currentUserChanged.next(undefined);
   }
   findNameById(userId: number) {
     const user = this.users.find((u) => u.id === userId);

@@ -18,15 +18,13 @@ export class HeaderComponent implements OnInit {
   onAuth() {
     this.onIsLoginMode();
 
-    console.log(this.isLoginMode);
     if (this.isLoginMode) {
       this.route.navigate(['/auth']);
     } else {
       this.authService.logOut();
-      console.log(this.currentUser);
+
       this.route.navigate(['/auth']);
     }
-    console.log(this.isLoginMode);
   }
 
   onIsLoginMode() {

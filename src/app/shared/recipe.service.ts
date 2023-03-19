@@ -38,7 +38,7 @@ export class RecipeService {
       1,
       'dessert',
       3,
-      1,
+      2,
       false,
       0
     ),
@@ -50,7 +50,7 @@ export class RecipeService {
   }
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
-    this.recipesChanged.next(this.recipes.slice());
+    this.recipesChanged.next(this.recipes);
   }
   // onImportFromStories(userID: number) {
   //   this.storiesService.allRecipesChanged.subscribe((rec: Recipe[]) => {
@@ -69,9 +69,7 @@ export class RecipeService {
   }
 
   importCurrUserRecipe(userID: number) {
-    this.recipes = this.recipes.filter((recipe) => recipe.userId === userID);
-    this.recipesChanged.next(this.recipes.slice());
-    console.log(this.recipes);
+    return this.recipes.filter((rec) => rec.userId === userID);
   }
   getOneRecipe(id: number) {
     return this.recipes[id];
@@ -85,7 +83,7 @@ export class RecipeService {
     this.recipes[id].title = title;
     this.recipes[id].description = description;
     this.recipes[id].ingredients = ingredients;
-    this.recipesChanged.next(this.recipes.slice());
+    this.recipesChanged.next(this.recipes);
   }
   onAddUniqueId() {
     return this.recipes.length + 1;
@@ -110,5 +108,20 @@ export class RecipeService {
   }
   exportToModel(index: number) {
     return this.exportTopublic()[index];
+  }
+  likeCounter(recipeId: number) {
+    this.recipes[recipeId].numberOfLikes =
+      this.recipes[recipeId].numberOfLikes + 1;
+
+    this.recipesChanged.next(this.recipes);
+    this.recipesPublicChanged.next(this.exportTopublic());
+    console.log(this.recipes);
+  }
+  unLikeCounter(recipeId: number) {
+    this.recipes[recipeId].numberOfLikes =
+      this.recipes[recipeId].numberOfLikes - 1;
+
+    this.recipesChanged.next(this.recipes);
+    this.recipesPublicChanged.next(this.exportTopublic());
   }
 }

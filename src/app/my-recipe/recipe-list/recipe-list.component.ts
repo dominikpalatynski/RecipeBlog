@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/shared/auh-model';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Ingredient } from 'src/app/shared/ingredients-model';
 import { Recipe } from 'src/app/shared/recipe-model';
@@ -22,20 +23,21 @@ export class RecipeListComponent implements OnInit {
     this.expandedIndex = new Array(this.recipes.length).fill(false);
   }
   expandedIndex: boolean[] = [];
-  currentUser = null;
+  currentUser!: User;
 
   recipes: Recipe[] = [];
 
   ngOnInit() {
-    this.recipes = this.recipeService.getRecipe();
+    // this.recipes = this.recipeService.getRecipe();
     this.recipeService.recipesChanged.subscribe((recipes: Recipe[]) => {
+      recipes = this.recipeService.importCurrUserRecipe(this.currentUser.id);
       this.recipes = recipes;
     });
 
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
 
-      this.recipeService.importCurrUserRecipe(user.id);
+      this.recipes = this.recipeService.importCurrUserRecipe(user.id);
     });
   }
 

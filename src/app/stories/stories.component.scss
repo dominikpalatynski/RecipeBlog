@@ -122,15 +122,22 @@
     align-self: flex-start;
   }
 }
-.saved-recipe {
-  background-color: red;
-}
+
 .saved-recipe {
   background-color: red;
   color: white;
 }
 
 .unsaved-recipe {
+  background-color: white;
+  color: black;
+}
+.liked-recipe {
+  background-color: red;
+  color: white;
+}
+
+.unliked-recipe {
   background-color: white;
   color: black;
 }
