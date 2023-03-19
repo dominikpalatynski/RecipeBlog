@@ -3,6 +3,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../shared/auh-model';
 import { AuthService } from '../shared/auth.service';
 import { Recipe } from '../shared/recipe-model';
+import { RecipeService } from '../shared/recipe.service';
+import { SaveService } from '../shared/save-service';
 import { StoriesService } from '../shared/stories.service';
 
 @Component({
@@ -15,7 +17,9 @@ export class RecipeModalComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private storiesService: StoriesService
+    private storiesService: StoriesService,
+    private saveService: SaveService,
+    private recipeService: RecipeService
   ) {}
   currentUser!: User;
   modalRecipe?: Recipe;
@@ -27,7 +31,7 @@ export class RecipeModalComponent implements OnInit {
     this.authService.currentUserChanged.subscribe(
       (user) => (this.currentUser = user)
     );
-    this.modalRecipe = this.storiesService.exportToModel(this.recipeId);
+    this.modalRecipe = this.recipeService.exportToModel(this.recipeId);
     console.log(this.modalRecipe);
   }
 

@@ -30,16 +30,13 @@ export class RecipeListComponent implements OnInit {
     this.recipes = this.recipeService.getRecipe();
     this.recipeService.recipesChanged.subscribe((recipes: Recipe[]) => {
       this.recipes = recipes;
-      console.log(this.recipes);
     });
 
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
-      // this.recipeService.onImportFromStories(user.id);
+
       this.recipeService.importCurrUserRecipe(user.id);
     });
-    console.log(this.currentUser);
-    console.log(this.recipes);
   }
 
   onCheck() {
@@ -58,7 +55,10 @@ export class RecipeListComponent implements OnInit {
     this.router.navigate([`${name}/${id}/edit`], { relativeTo: this.route });
   }
   dropDownBut() {}
-  onShare(r: number) {
-    this.storiesService.shareFromRecipes(this.recipes[r]);
+  // onShare(r: number) {
+  //   this.storiesService.shareFromRecipes(this.recipes[r]);
+  // }
+  onAddToPublic(index: number) {
+    this.recipeService.onAddToPublic(index);
   }
 }

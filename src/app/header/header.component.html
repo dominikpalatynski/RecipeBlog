@@ -3,12 +3,12 @@
     <div class="web-logo">
       <a>Recipe Blog</a>
     </div>
-    <div *ngIf="!isLoginMode">
+    <div>
       <ul>
-        <li>
+        <li *ngIf="!isLoginMode">
           <a routerLink="/create">Create</a>
         </li>
-        <li>
+        <li *ngIf="!isLoginMode">
           <a routerLink="/Your">Your Recipes</a>
         </li>
         <li>

@@ -80,17 +80,15 @@
       <button
         class="emoi-btn 3"
         (click)="
-          isSaved(currentUser.id, i)
-            ? onDelete(currentUser.id, i.uniqueId)
-            : onAdd(currentUser.id, i.uniqueId)
+          checkIfLogin(currentUser) ? isSaved(currentUser.id, i) : goLoginMode()
         "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="save"
           [ngClass]="{
-            'saved-recipe': isSaved(currentUser.id, i),
-            'unsaved-recipe': !isSaved(currentUser.id, i)
+            'saved-recipe': !isSaveClass,
+            'unsaved-recipe': !isSaveClass
           }"
           viewBox="0 0 384 512"
         >

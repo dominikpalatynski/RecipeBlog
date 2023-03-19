@@ -27,7 +27,7 @@ export class CreateRecipeComponent implements OnInit {
     ingredients: new FormArray([]),
   });
   // @ts-ignore
-  id: number;
+  id!: number;
   currentUser: any;
   userId: number = 0;
   editMode: boolean = false;
@@ -35,12 +35,16 @@ export class CreateRecipeComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
-      console.log(user);
     });
+    if (this.currentUser) {
+    }
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
+      // this.id = params['id'];
 
       this.editMode = params['name'] != null;
+      if (this.editMode) {
+        this.id = params['id'];
+      }
       this.initForm();
     });
   }
@@ -66,17 +70,22 @@ export class CreateRecipeComponent implements OnInit {
       this.currentUser.id,
       '',
       1,
-      uniqueId
+      uniqueId,
+      false,
+      0
     );
 
     if (!this.editMode) {
       this.recService.addRecipe(newRecipe);
     }
     if (this.editMode) {
-      this.recService.onUpdate(this.id, newRecipe);
+      this.recService.onUpdate(
+        this.id,
+        form.title,
+        form.description,
+        form.ingredients
+      );
     }
-
-    // this.storiesService.onAddToStories(newRecipe)
   }
   onDeleteIngr(index: number) {
     (<FormArray>this.form.get('ingredients')).removeAt(index);

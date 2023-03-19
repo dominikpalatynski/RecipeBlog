@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { User } from './auh-model';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { RecipeService } from './recipe.service';
 import { SaveService } from './save-service';
 
@@ -16,7 +16,8 @@ export class AuthService implements OnInit {
   constructor(
     private route: Router,
     private recipeService: RecipeService,
-    private saveService: SaveService
+    private saveService: SaveService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -98,5 +99,8 @@ export class AuthService implements OnInit {
   findNameById(userId: number) {
     const user = this.users.find((u) => u.id === userId);
     return user ? user.email : null;
+  }
+  goLogin() {
+    this.router.navigate(['/auth']);
   }
 }

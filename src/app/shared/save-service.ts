@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Recipe } from './recipe-model';
+import { RecipeService } from './recipe.service';
 import { SaveRecipe } from './save-model';
+import { StoriesService } from './stories.service';
 
-// @Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 export class SaveService {
-  allSavedRecipes: SaveRecipe[] = [{ userId: 1, recipesId: [] }];
+  constructor(private recipeService: RecipeService) {}
+  allSavedRecipes: SaveRecipe[] = [
+    { userId: 1, recipesId: [], likedRecipes: [] },
+  ];
   allSavedRecipesChanged = new Subject<SaveRecipe[]>();
   onSaveRecipes(userId: number, recipeId: number) {
     const indexOfSave = this.allSavedRecipes.findIndex(
@@ -19,7 +24,7 @@ export class SaveService {
     }
   }
   createNewElement(id: number) {
-    this.allSavedRecipes.push({ userId: id, recipesId: [] });
+    this.allSavedRecipes.push({ userId: id, recipesId: [], likedRecipes: [] });
     this.allSavedRecipesChanged.next(this.allSavedRecipes.slice());
   }
   checkCanSave(userId: number, recipeId: number) {
@@ -37,9 +42,7 @@ export class SaveService {
     return checkIfSave;
   }
   onAdd(userId: number, recipeId: number) {
-    const indexOfSave = this.allSavedRecipes.findIndex(
-      (index) => index.userId === userId
-    );
+    const indexOfSave = this.onFindCurrentUserSave(userId);
     this.allSavedRecipes[indexOfSave].recipesId.push(recipeId);
     this.allSavedRecipesChanged.next(this.allSavedRecipes);
   }
@@ -59,5 +62,32 @@ export class SaveService {
       (r) => r.userId === currentUserId
     );
     return savedRecipe?.recipesId.includes(recipe.uniqueId);
+  }
+  exportSavedRecipe(currentUserId: number): Recipe[] {
+    const indexOfSave = this.onFindCurrentUserSave(currentUserId);
+    const recipesId = this.allSavedRecipes[indexOfSave].recipesId;
+    const currentSaveStories =
+      this.recipeService.onExportSavedRecipe(recipesId);
+
+    return currentSaveStories;
+  }
+  onFindCurrentUserSave(currentUserId: number) {
+    return this.allSavedRecipes.findIndex(
+      (index) => index.userId === currentUserId
+    );
+  }
+  isLiked(currentUserId: number, recipe: Recipe) {
+    const likedRecipe = this.allSavedRecipes.find(
+      (r) => r.userId === currentUserId
+    );
+    return likedRecipe?.likedRecipes.includes(recipe.uniqueId);
+  }
+  onLike(userId: number, likeId: number) {
+    const indexOfLiked = this.onFindCurrentUserSave(userId);
+    this.allSavedRecipes[indexOfLiked].recipesId.push(likeId);
+    this.allSavedRecipesChanged.next(this.allSavedRecipes);
+  }
+  onUnlike(userId: number, likeId: number) {
+    const indexOfLiked = this.onFindCurrentUserSave(userId);
   }
 }

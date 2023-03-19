@@ -5,6 +5,7 @@ import { MyRecipeComponent } from '../my-recipe/my-recipe.component';
 import { StoriesComponent } from '../stories/stories.component';
 import { AuthComponent } from '../auth/auth.component';
 import { RecipeModalComponent } from '../recipe-modal/recipe-modal.component';
+import { SavedRecipeComponent } from '../saved-recipe/saved-recipe.component';
 
 const appRoutes: Routes = [
   { path: 'create', component: CreateRecipeComponent },
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
     ],
   },
   { path: 'auth', component: AuthComponent },
+  { path: 'saved', component: SavedRecipeComponent },
 ];
 
 @NgModule({

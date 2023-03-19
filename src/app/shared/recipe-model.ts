@@ -8,6 +8,8 @@ export class Recipe {
   public type: string;
   public difcult: number;
   public uniqueId: number;
+  public addedToPublic: boolean;
+  public numberOfLikes: number;
 
   constructor(
     title: string,
@@ -16,7 +18,9 @@ export class Recipe {
     userId: number,
     type: string,
     dificult: number,
-    uniqueId: number
+    uniqueId: number,
+    addedTopublic: boolean,
+    numberOfLikes: number
   ) {
     this.title = title;
     this.description = description;
@@ -25,5 +29,7 @@ export class Recipe {
     this.type = type;
     this.difcult = dificult;
     this.uniqueId = uniqueId;
+    this.addedToPublic = addedTopublic;
+    this.numberOfLikes = numberOfLikes;
   }
 }

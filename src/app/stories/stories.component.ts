@@ -30,16 +30,17 @@ export class StoriesComponent implements OnInit {
   savedRecipes: SaveRecipe[] = [];
   expandedIndex: boolean[] = [];
   currentUser!: User;
+  isSaveClass: any;
   yourRec: boolean = false;
   searchTitle: string = '';
   ngOnInit() {
-    this.allRecipes = this.storiesService.onExportRecipes();
-    this.storiesService.allRecipesChanged.subscribe((allRec) => {
-      this.allRecipes = allRec;
+    this.allRecipes = this.recipeService.exportTopublic();
+    this.recipeService.recipesPublicChanged.subscribe((recipe) => {
+      this.allRecipes = recipe;
     });
+
     this.saveService.allSavedRecipesChanged.subscribe((saved) => {
       this.savedRecipes = saved;
-      console.log(this.savedRecipes);
     });
     this.authService.currentUserChanged.subscribe((user) => {
       this.currentUser = user;
@@ -56,6 +57,7 @@ export class StoriesComponent implements OnInit {
   onSave(index: number) {
     const passId = this.currentUser.id;
     const recId = this.allRecipes[index].uniqueId;
+
     if (!(this.currentUser.id === this.allRecipes[index].userId)) {
       this.saveService.onSaveRecipes(passId, recId);
     } else {
@@ -70,6 +72,18 @@ export class StoriesComponent implements OnInit {
     this.saveService.onDelete(currentUserId, recipeId);
   }
   isSaved(currentUserId: number, recipe: Recipe) {
-    return this.saveService.isSave(currentUserId, recipe);
+    const checkIfSave = this.saveService.isSave(currentUserId, recipe);
+    this.isSaveClass = this.saveService.isSave(currentUserId, recipe);
+
+    checkIfSave
+      ? this.onDelete(currentUserId, recipe.uniqueId)
+      : this.onAdd(currentUserId, recipe.uniqueId);
+  }
+  checkIfLogin(currentUser: User) {
+    const check = currentUser ? true : false;
+    return check;
+  }
+  goLoginMode() {
+    this.authService.goLogin();
   }
 }
