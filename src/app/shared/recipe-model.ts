@@ -1,5 +1,5 @@
 import { Ingredient } from './ingredients-model';
-
+import { Comment } from './comment-mode';
 export class Recipe {
   public title: string;
   public description: string;
@@ -10,6 +10,7 @@ export class Recipe {
   public uniqueId: number;
   public addedToPublic: boolean;
   public numberOfLikes: number;
+  public comments: Comment[];
 
   constructor(
     title: string,
@@ -20,7 +21,8 @@ export class Recipe {
     dificult: number,
     uniqueId: number,
     addedTopublic: boolean,
-    numberOfLikes: number
+    numberOfLikes: number,
+    comments: Comment[]
   ) {
     this.title = title;
     this.description = description;
@@ -31,5 +33,6 @@ export class Recipe {
     this.uniqueId = uniqueId;
     this.addedToPublic = addedTopublic;
     this.numberOfLikes = numberOfLikes;
+    this.comments = comments;
   }
 }

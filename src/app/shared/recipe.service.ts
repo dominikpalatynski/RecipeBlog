@@ -3,6 +3,7 @@ import { Recipe } from './recipe-model';
 import { Ingredient } from './ingredients-model';
 import { Injectable } from '@angular/core';
 import { StoriesService } from './stories.service';
+import { Comment } from './comment-mode';
 
 @Injectable()
 export class RecipeService {
@@ -10,38 +11,40 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   recipesPublicChanged = new Subject<Recipe[]>();
   recipes: Recipe[] = [
-    new Recipe(
-      'test name',
-      '3 jaja i chleb ',
-      [
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-      ],
-      1,
-      'dessert',
-      3,
-      1,
-      false,
-      0
-    ),
-    new Recipe(
-      'test name',
-      '3 jaja i chleb ',
-      [
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-        new Ingredient('bekon', 3),
-      ],
-      1,
-      'dessert',
-      3,
-      2,
-      false,
-      0
-    ),
+    // new Recipe(
+    //   'test name',
+    //   '3 jaja i chleb ',
+    //   [
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //   ],
+    //   1,
+    //   'dessert',
+    //   3,
+    //   1,
+    //   false,
+    //   0,
+    //   []
+    // ),
+    // new Recipe(
+    //   'test name',
+    //   '3 jaja i chleb ',
+    //   [
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //     new Ingredient('bekon', 3),
+    //   ],
+    //   1,
+    //   'dessert',
+    //   3,
+    //   2,
+    //   false,
+    //   0,
+    //   []
+    // ),
   ];
 
   getRecipe() {
@@ -123,5 +126,15 @@ export class RecipeService {
 
     this.recipesChanged.next(this.recipes);
     this.recipesPublicChanged.next(this.exportTopublic());
+  }
+  addComment(recipeId: number, newComment: Comment) {
+    this.recipes[this.findIndexOfRecipe(recipeId)].comments.push(newComment);
+    this.recipesChanged.next(this.recipes);
+  }
+  findIndexOfRecipe(recipeId: number) {
+    const findedRecipe = this.recipes.findIndex(
+      (rec) => rec.uniqueId === recipeId
+    );
+    return findedRecipe;
   }
 }

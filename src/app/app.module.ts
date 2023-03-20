@@ -21,6 +21,8 @@ import { RecipeModalComponent } from './recipe-modal/recipe-modal.component';
 import { FilterByTitle } from './pipes/searchName';
 import { SaveService } from './shared/save-service';
 import { SavedRecipeComponent } from './saved-recipe/saved-recipe.component';
+import { RecipeCommentsComponent } from './recipe-modal/recipe-comments/recipe-comments.component';
+import { RecipeModalDetailComponent } from './recipe-modal/recipe-modal-detail/recipe-modal-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,8 @@ import { SavedRecipeComponent } from './saved-recipe/saved-recipe.component';
     RecipeModalComponent,
     FilterByTitle,
     SavedRecipeComponent,
+    RecipeCommentsComponent,
+    RecipeModalDetailComponent,
   ],
   imports: [
     BrowserModule,

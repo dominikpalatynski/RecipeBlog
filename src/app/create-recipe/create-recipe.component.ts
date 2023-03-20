@@ -6,6 +6,7 @@ import { AuthService } from '../shared/auth.service';
 import { Recipe } from '../shared/recipe-model';
 import { RecipeService } from '../shared/recipe.service';
 import { StoriesService } from '../shared/stories.service';
+import { Comment } from '../shared/comment-mode';
 
 @Component({
   selector: 'app-create-recipe',
@@ -61,6 +62,7 @@ export class CreateRecipeComponent implements OnInit {
     );
   }
   onSubmit() {
+    const comment: Comment[] = [];
     const form = this.form.value;
     const uniqueId = this.recService.onAddUniqueId();
     const newRecipe = new Recipe(
@@ -72,7 +74,8 @@ export class CreateRecipeComponent implements OnInit {
       1,
       uniqueId,
       false,
-      0
+      0,
+      comment
     );
 
     if (!this.editMode) {
