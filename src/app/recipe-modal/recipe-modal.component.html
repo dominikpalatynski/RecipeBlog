@@ -9,84 +9,79 @@
     />
   </div>
   <div class="content-container">
-    <div class="title-container">
-      {{ modalRecipe.title }}
-    </div>
-    <div class="author-container">
-      <label>Author</label>
-    </div>
-    <div class="decription-container">
-      <p>{{ modalRecipe.description }}</p>
-    </div>
-    <div class="ingredients-container">
-      <a>ing1</a>
-      <a>ing1</a>
-      <a>ing1</a>
+    <div class="start-container">
+      <div class="title-container">
+        <h2>{{ modalRecipe.title }}</h2>
+      </div>
+      <div class="author-container">
+        <label>Created by: Author</label>
+      </div>
+      <app-recipe-modal-detail class="recipe-detail"></app-recipe-modal-detail>
     </div>
 
-    <div class="emoi-container">
-      <button class="emoi-btn" (click)="isLike(currentUser.id, modalRecipe)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="heart"
-          viewBox="0 0 512 512"
-          [ngClass]="{
-            'liked-recipe': colorHandle(currentUser.id, modalRecipe).liked,
-            'unliked-recipe': !colorHandle(currentUser.id, modalRecipe).liked
-          }"
-        >
-          <path
-            d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"
+    <div class="end-container">
+      <div class="emoi-container">
+        <button class="emoi-btn" (click)="isLike(currentUser.id, modalRecipe)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="heart"
+            viewBox="0 0 512 512"
+            [ngClass]="{
+              'liked-recipe': colorHandle(currentUser.id, modalRecipe).liked,
+              'unliked-recipe': !colorHandle(currentUser.id, modalRecipe).liked
+            }"
+          >
+            <path
+              d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"
+            />
+          </svg>
+        </button>
+        <label class="emoi-btn" for="comment">
+          <svg
+            class="heart"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+              d="M168 32H24C10.7 32 0 42.7 0 56V200c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l40-40 79 79L81 335 41 295c-6.9-6.9-17.2-8.9-26.2-5.2S0 302.3 0 312V456c0 13.3 10.7 24 24 24H168c9.7 0 18.5-5.8 22.2-14.8s1.7-19.3-5.2-26.2l-40-40 79-79 79 79-40 40c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H424c13.3 0 24-10.7 24-24V312c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2l-40 40-79-79 79-79 40 40c6.9 6.9 17.2 8.9 26.2 5.2s14.8-12.5 14.8-22.2V56c0-13.3-10.7-24-24-24H280c-9.7 0-18.5 5.8-22.2 14.8s-1.7 19.3 5.2 26.2l40 40-79 79-79-79 40-40c6.9-6.9 8.9-17.2 5.2-26.2S177.7 32 168 32z"
+            />
+          </svg>
+        </label>
+        <button class="emoi-btn" (click)="isSaved(currentUser.id, modalRecipe)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="save"
+            viewBox="0 0 384 512"
+            [ngClass]="{
+              'saved-recipe': colorHandle(currentUser.id, modalRecipe).saved,
+              'unsaved-recipe': !colorHandle(currentUser.id, modalRecipe).saved
+            }"
+          >
+            <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+              d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="likes-container">
+        <p>{{ modalRecipe.numberOfLikes }}</p>
+      </div>
+
+      <div class="commentInput-container">
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <input
+            id="comment"
+            type="text"
+            placeholder="Add comment..."
+            name="comment"
+            ngModel
+            comment
           />
-        </svg>
-      </button>
-      <label class="emoi-btn" for="comment">
-        <svg
-          class="heart"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-        >
-          <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-          <path
-            d="M168 32H24C10.7 32 0 42.7 0 56V200c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l40-40 79 79L81 335 41 295c-6.9-6.9-17.2-8.9-26.2-5.2S0 302.3 0 312V456c0 13.3 10.7 24 24 24H168c9.7 0 18.5-5.8 22.2-14.8s1.7-19.3-5.2-26.2l-40-40 79-79 79 79-40 40c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H424c13.3 0 24-10.7 24-24V312c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2l-40 40-79-79 79-79 40 40c6.9 6.9 17.2 8.9 26.2 5.2s14.8-12.5 14.8-22.2V56c0-13.3-10.7-24-24-24H280c-9.7 0-18.5 5.8-22.2 14.8s-1.7 19.3 5.2 26.2l40 40-79 79-79-79 40-40c6.9-6.9 8.9-17.2 5.2-26.2S177.7 32 168 32z"
-          />
-        </svg>
-      </label>
-      <button class="emoi-btn" (click)="isSaved(currentUser.id, modalRecipe)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="save"
-          viewBox="0 0 384 512"
-          [ngClass]="{
-            'saved-recipe': colorHandle(currentUser.id, modalRecipe).saved,
-            'unsaved-recipe': !colorHandle(currentUser.id, modalRecipe).saved
-          }"
-        >
-          <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-          <path
-            d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"
-          />
-        </svg>
-      </button>
-    </div>
-    <div class="likes-container">
-      <p>{{ modalRecipe.numberOfLikes }}</p>
-    </div>
-    <div class="data-container">
-      <p>31min ago</p>
-    </div>
-    <div class="commentInput-container">
-      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <input
-          id="comment"
-          type="text"
-          placeholder="Add comment..."
-          name="comment"
-          ngModel
-          comment
-        />
-        <button type="submit">Publish</button>
-      </form>
+          <button type="submit">Publish</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
