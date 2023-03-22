@@ -1,1 +1,12 @@
-<p>recipe-comments works!</p>
+<div class="comments-container">
+  <div
+    class="single-comment"
+    *ngFor="let c of modalRecipe.comments; let i = index"
+  >
+    <label>{{ findNameById(c.authorId) }}</label>
+    <p>{{ c.comment }}</p>
+    <button *ngIf="deleteComponents(c.authorId)" (click)="onDeleteComment(i)">
+      Delete
+    </button>
+  </div>
+</div>

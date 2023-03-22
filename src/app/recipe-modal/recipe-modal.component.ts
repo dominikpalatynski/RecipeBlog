@@ -33,7 +33,6 @@ export class RecipeModalComponent implements OnInit {
       (user) => (this.currentUser = user)
     );
     this.modalRecipe = this.recipeService.exportToModel(this.recipeId);
-    console.log(this.modalRecipe);
   }
 
   onBack() {
@@ -65,5 +64,8 @@ export class RecipeModalComponent implements OnInit {
     checkIsLiked
       ? this.saveService.onUnlike(currentUserId, reciped.uniqueId)
       : this.saveService.onLike(currentUserId, reciped.uniqueId);
+  }
+  findNameById(userId: number) {
+    return this.authService.findNameById(userId);
   }
 }

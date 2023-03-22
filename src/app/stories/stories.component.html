@@ -67,7 +67,7 @@
           />
         </svg>
       </button>
-      <button class="emoi-btn" (click)="onDetail(r, i.title)">
+      <button class="emoi-btn" (click)="onDetail(i.uniqueId, i.title)">
         <svg
           class="heart"
           xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +101,10 @@
     <div class="description-container">
       <p>{{ i.numberOfLikes }}</p>
     </div>
-    <div class="description-container">
-      <p>{{ i.description }}</p>
+    <div class="goToCome=container">
+      <a (click)="onDetail(i.uniqueId, i.title)" style="cursor: pointer"
+        >See all comments{{ i.comments.length }}</a
+      >
     </div>
   </div>
 </div>

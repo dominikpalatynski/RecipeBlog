@@ -1,34 +1,13 @@
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<p>recipe-modal-detail works!</p>
-<app-recipe-comments></app-recipe-comments>
+<div class="content-container">
+  <div class="rest-container">
+    <div class="description-container">
+      <p>{{ modalRecipe.description }}</p>
+    </div>
+    <div class="ingredients-container">
+      <p *ngFor="let i of modalRecipe.ingredients; let ind = index">
+        {{ ind + 1 }}. {{ i.name }} : {{ i.amount }}
+      </p>
+    </div>
+  </div>
+  <app-recipe-comments></app-recipe-comments>
+</div>

@@ -1,7 +1,4 @@
 <div class="modal-overlay">
-  <div class="close-container">
-    <button type="button" (click)="onBack()">Close</button>
-  </div>
   <div class="img-container">
     <img
       src="https://i.pinimg.com/564x/80/95/f4/8095f4adae57b2319f5d24b5cf070e94.jpg"
@@ -12,9 +9,12 @@
     <div class="start-container">
       <div class="title-container">
         <h2>{{ modalRecipe.title }}</h2>
+        <div class="close-container">
+          <button type="button" (click)="onBack()">Close</button>
+        </div>
       </div>
       <div class="author-container">
-        <label>Created by: Author</label>
+        <label>Created by: Author {{ findNameById(modalRecipe.userId) }}</label>
       </div>
       <app-recipe-modal-detail class="recipe-detail"></app-recipe-modal-detail>
     </div>

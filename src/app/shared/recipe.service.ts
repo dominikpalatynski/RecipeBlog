@@ -4,48 +4,14 @@ import { Ingredient } from './ingredients-model';
 import { Injectable } from '@angular/core';
 import { StoriesService } from './stories.service';
 import { Comment } from './comment-mode';
+import { CommaExpr } from '@angular/compiler';
 
 @Injectable()
 export class RecipeService {
   constructor(private storiesService: StoriesService) {}
   recipesChanged = new Subject<Recipe[]>();
   recipesPublicChanged = new Subject<Recipe[]>();
-  recipes: Recipe[] = [
-    // new Recipe(
-    //   'test name',
-    //   '3 jaja i chleb ',
-    //   [
-    //     new Ingredient('bekon', 3),
-    //     new Ingredient('bekon', 3),
-    //     new Ingredient('bekon', 3),
-    //     new Ingredient('bekon', 3),
-    //   ],
-    //   1,
-    //   'dessert',
-    //   3,
-    //   1,
-    //   false,
-    //   0,
-    //   []
-    // ),
-    // new Recipe(
-    //   'test name',
-    //   '3 jaja i chleb ',
-    //   [
-    //     new Ingredient('bekon', 3),
-    //     new Ingredient('bekon', 3),
-    //     new Ingredient('bekon', 3),
-    //     new Ingredient('bekon', 3),
-    //   ],
-    //   1,
-    //   'dessert',
-    //   3,
-    //   2,
-    //   false,
-    //   0,
-    //   []
-    // ),
-  ];
+  recipes: Recipe[] = [];
 
   getRecipe() {
     this.recipesChanged.next(this.recipes.slice());
@@ -92,7 +58,7 @@ export class RecipeService {
     return this.recipes.length + 1;
   }
   onAddToPublic(index: number) {
-    this.recipes[index].addedToPublic = true;
+    this.recipes[this.findIndexOfRecipe(index)].addedToPublic = true;
     this.recipesChanged.next(this.recipes);
     this.exportTopublic();
     this.recipesPublicChanged.next(this.exportTopublic());
@@ -110,31 +76,39 @@ export class RecipeService {
     return filteredRecipes;
   }
   exportToModel(index: number) {
-    return this.exportTopublic()[index];
+    return this.exportTopublic()[this.findIndexOfRecipe(index)];
   }
   likeCounter(recipeId: number) {
-    this.recipes[recipeId].numberOfLikes =
-      this.recipes[recipeId].numberOfLikes + 1;
+    this.recipes[this.findIndexOfRecipe(recipeId)].numberOfLikes =
+      this.recipes[this.findIndexOfRecipe(recipeId)].numberOfLikes + 1;
 
     this.recipesChanged.next(this.recipes);
     this.recipesPublicChanged.next(this.exportTopublic());
-    console.log(this.recipes);
   }
   unLikeCounter(recipeId: number) {
-    this.recipes[recipeId].numberOfLikes =
-      this.recipes[recipeId].numberOfLikes - 1;
+    this.recipes[this.findIndexOfRecipe(recipeId)].numberOfLikes =
+      this.recipes[this.findIndexOfRecipe(recipeId)].numberOfLikes - 1;
 
     this.recipesChanged.next(this.recipes);
     this.recipesPublicChanged.next(this.exportTopublic());
   }
   addComment(recipeId: number, newComment: Comment) {
-    this.recipes[this.findIndexOfRecipe(recipeId)].comments.push(newComment);
+    this.recipes[this.findIndexOfRecipe(recipeId - 1)].comments.push(
+      newComment
+    );
     this.recipesChanged.next(this.recipes);
   }
   findIndexOfRecipe(recipeId: number) {
     const findedRecipe = this.recipes.findIndex(
       (rec) => rec.uniqueId === recipeId
     );
-    return findedRecipe;
+    return findedRecipe + 1;
+  }
+  onDeleteComment(recipeId: number, commentId: number) {
+    console.log(this.findIndexOfRecipe(recipeId));
+    this.recipes[this.findIndexOfRecipe(recipeId)].comments.splice(
+      commentId,
+      1
+    );
   }
 }
