@@ -45,6 +45,7 @@ export class RecipeModalComponent implements OnInit {
       this.modalRecipe.uniqueId,
       new Comment(this.currentUser.id, comment)
     );
+    console.log(comment);
     form.resetForm();
   }
   colorHandle(currentUserId: number, recipe: Recipe) {

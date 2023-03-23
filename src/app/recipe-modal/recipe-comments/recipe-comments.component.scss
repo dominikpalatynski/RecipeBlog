@@ -1,0 +1,30 @@
+.single-comment {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 300px;
+
+  label {
+    font-weight: bold;
+  }
+  p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  button {
+    flex: 1;
+    justify-self: flex-end;
+    background-color: transparent;
+    border-style: none;
+    color: aqua;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 0 0 100%;
+}

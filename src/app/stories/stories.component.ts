@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { Recipe } from '../shared/recipe-model';
 import { StoriesService } from '../shared/stories.service';
@@ -25,6 +25,8 @@ export class StoriesComponent implements OnInit {
   ) {
     this.expandedIndex = new Array(this.allRecipes.length).fill(false);
   }
+  @HostBinding('style.overflow')
+  overflow = 'hidden';
 
   allRecipes: Recipe[] = [];
   savedRecipes: SaveRecipe[] = [];
